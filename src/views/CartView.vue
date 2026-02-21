@@ -32,6 +32,9 @@ const cart = useCartStore()
       </div>
 
       <h3>Total: {{ cart.totalPrice }} USD</h3>
+      <RouterLink to="/checkout" class="checkout-btn">
+        Proceder al pago
+      </RouterLink>
     </div>
   </section>
 </template>
@@ -45,5 +48,14 @@ const cart = useCartStore()
 .controls {
   display: flex;
   gap: 0.5rem;
+}
+
+.checkout-btn {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 0.8rem 1.5rem;
+  background: #0f1c2e;
+  color: white;
+  border-radius: 8px;
 }
 </style>
