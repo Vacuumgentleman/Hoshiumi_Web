@@ -52,7 +52,9 @@ const filteredProducts = computed(() => {
         class="card"
       >
         <img :src="product.image" :alt="product.name" />
+        <RouterLink :to="`/product/${product.id}`">
         <h3>{{ product.name }}</h3>
+        </RouterLink>
         <p>{{ product.price }} USD</p>
         <button @click="cart.addToCart(product)">
           Agregar al carrito

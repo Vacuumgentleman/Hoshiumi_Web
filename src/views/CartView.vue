@@ -13,11 +13,37 @@ const cart = useCartStore()
     </div>
 
     <div v-else>
-      <div v-for="item in cart.items" :key="item.id">
-        {{ item.name }} - {{ item.price }} USD
+      <div
+        v-for="item in cart.items"
+        :key="item.product.id"
+        class="cart-item"
+      >
+        <h3>{{ item.product.name }}</h3>
+        <p>Precio: {{ item.product.price }} USD</p>
+        <p>Cantidad: {{ item.quantity }}</p>
+
+        <div class="controls">
+          <button @click="cart.decreaseQuantity(item.product.id)">-</button>
+          <button @click="cart.addToCart(item.product)">+</button>
+          <button @click="cart.removeFromCart(item.product.id)">
+            Eliminar
+          </button>
+        </div>
       </div>
 
       <h3>Total: {{ cart.totalPrice }} USD</h3>
     </div>
   </section>
 </template>
+
+<style scoped>
+.cart-item {
+  border-bottom: 1px solid #eee;
+  padding: 1rem 0;
+}
+
+.controls {
+  display: flex;
+  gap: 0.5rem;
+}
+</style>
