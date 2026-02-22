@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { useCartStore } from "@/stores/cart"
-
+import { useUIStore } from "@/stores/ui"
+import CartDrawer from "@/components/CartDrawer.vue"
 const cart = useCartStore()
+const ui = useUIStore()
 </script>
 
 <template>
@@ -14,14 +16,15 @@ const cart = useCartStore()
       <div class="links">
         <RouterLink to="/gallery">Galería</RouterLink>
         <RouterLink to="/about">Sobre</RouterLink>
-        <RouterLink to="/cart" class="cart">
-          🛒 {{ cart.totalItems }}
-        </RouterLink>
+      <div class="cart-button" @click="ui.openCart">
+        🛒 {{ cart.totalItems }}
+      </div>
       </div>
     </nav>
 
     <main>
       <router-view />
+      <CartDrawer /> 
     </main>
   </div>
 </template>

@@ -1,102 +1,127 @@
 <script setup lang="ts">
-import { ref, computed } from "vue"
 import { products } from "@/data/products"
+import { useFavoritesStore } from "@/stores/favorites"
 import { useCartStore } from "@/stores/cart"
 
+const favorites = useFavoritesStore()
 const cart = useCartStore()
-
-const search = ref("")
-const selectedCategory = ref("all")
-
-const filteredProducts = computed(() => {
-  return products.filter((product) => {
-    const matchesSearch = product.name
-      .toLowerCase()
-      .includes(search.value.toLowerCase())
-
-    const matchesCategory =
-      selectedCategory.value === "all" ||
-      product.category === selectedCategory.value
-
-    return matchesSearch && matchesCategory
-  })
-})
 </script>
 
 <template>
-  <section>
-    <h2>Galería</h2>
+  <section class="shop">
+    <h1>SHOP</h1>
 
-    <!-- Controles -->
-    <div class="controls">
-      <input
-        v-model="search"
-        type="text"
-        placeholder="Buscar obra..."
-      />
-
-      <select v-model="selectedCategory">
-        <option value="all">Todas</option>
-        <option value="digital">Digital</option>
-        <option value="print">Print</option>
-        <option value="original">Original</option>
-        <option value="merch">Merch</option>
-      </select>
-    </div>
-
-    <!-- Productos -->
     <div class="grid">
-      <div
-        v-for="product in filteredProducts"
-        :key="product.id"
-        class="card"
-      >
-        <img :src="product.image" :alt="product.name" />
-        <RouterLink :to="`/product/${product.id}`">
+      <div v-for="product in products" :key="product.id" class="card">
+        <div class="image-wrapper">
+          <img :src="product.image" />
+
+          <div class="overlay">
+            <button @click="cart.addToCart(product)">
+              Añadir al carrito
+            </button>
+          </div>
+
+          <button
+            class="favorite"
+            @click="favorites.toggleFavorite(product)"
+          >
+            {{ favorites.isFavorite(product.id) ? "❤️" : "♡" }}
+          </button>
+        </div>
+
         <h3>{{ product.name }}</h3>
-        </RouterLink>
-        <p>{{ product.price }} USD</p>
-        <button @click="cart.addToCart(product)">
-          Agregar al carrito
-        </button>
+        <p>{{ product.price }} €</p>
       </div>
     </div>
   </section>
 </template>
 
 <style scoped>
-.controls {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-input, select {
-  padding: 0.6rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6rem;
 }
 
 .card {
-  padding: 1rem;
-  border: 1px solid #eee;
-  border-radius: 10px;
   text-align: center;
-  transition: 0.2s;
 }
 
-.card:hover {
-  transform: translateY(-4px);
+.image-wrapper {
+  position: relative;
+  overflow: hidden;
 }
 
-img {
+.image-wrapper img {
   width: 100%;
-  border-radius: 8px;
+  transition: transform 0.5s ease;
+}
+
+.image-wrapper:hover img {
+  transform: scale(1.03);
+}
+
+/* Overlay hover */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.image-wrapper:hover .overlay {
+  opacity: 1;
+}
+
+.overlay button {
+  background: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  letter-spacing: 1px;
+}
+
+/* Favorite */
+.favorite {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: white;
+  border-radius: 50%;
+  border: none;
+  padding: 0.5rem 0.6rem;
+  cursor: pointer;
+}
+
+.card h3 {
+  margin-top: 1rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.card p {
+  color: #888;
+  margin-top: 0.3rem;
+}
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .shop {
+    padding: 2rem;
+  }
 }
 </style>

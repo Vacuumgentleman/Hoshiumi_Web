@@ -33,3 +33,7 @@ button {
   color: white;
   transition: 0.2s;
 }
+
+h1, h2, h3 {
+  font-family: "Playfair Display", serif;
+}

@@ -1,18 +1,24 @@
 import { defineStore } from "pinia"
+import type { Product } from "@/types/product"
 
 export const useFavoritesStore = defineStore("favorites", {
   state: () => ({
-    ids: JSON.parse(localStorage.getItem("favorites") || "[]") as string[],
+    items: [] as Product[],
   }),
 
   actions: {
-    toggle(id: string) {
-      if (this.ids.includes(id)) {
-        this.ids = this.ids.filter((i) => i !== id)
+    toggleFavorite(product: Product) {
+      const exists = this.items.find(p => p.id === product.id)
+
+      if (exists) {
+        this.items = this.items.filter(p => p.id !== product.id)
       } else {
-        this.ids.push(id)
+        this.items.push(product)
       }
-      localStorage.setItem("favorites", JSON.stringify(this.ids))
     },
-  },
+
+    isFavorite(id: string) {
+      return this.items.some(p => p.id === id)
+    }
+  }
 })
