@@ -36,6 +36,13 @@ const filteredProducts = computed(() => {
 
   return result
 })
+
+function resetFilters() {
+  search.value = ""
+  selectedCategory.value = "all"
+  sortOrder.value = "default"
+}
+
 </script>
 
 <template>
@@ -94,6 +101,26 @@ const filteredProducts = computed(() => {
       <div v-else-if="products.length === 0">
         No hay productos disponibles
     </div>
+    
+
+    <div v-if="filteredProducts.length === 0 && search">
+      <div class="no-results">
+          <div class="no-results-icon">🔍</div>
+          <h3>No se encontraron resultados</h3>
+          <p>Intenta con otro nombre o cambia los filtros.</p>
+          <button @click="resetFilters">Ver todas las obras</button>
+      </div>
+    </div>
+
+    <div v-else-if="products.length === 0">
+        <div class="no-results">
+            <div class="no-results-icon">📦</div>
+            <h3>No hay productos disponibles</h3>
+            <p>Estamos preparando nuevas obras para ti.</p>
+        </div>
+    </div>
+
+
   </section>
 </template>
 
@@ -216,5 +243,48 @@ const filteredProducts = computed(() => {
 .filters select:focus {
   outline: none;
   border-color: black;
+}
+
+.no-results {
+    text-align: center;
+    padding: 100px 20px;
+    color: #444;
+    animation: fadeIn 0.4s ease;
+}
+
+.no-results-icon {
+    font-size: 42px;
+    margin-bottom: 15px;
+    opacity: 0.6;
+}
+
+.no-results h3 {
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.no-results p {
+    font-size: 15px;
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.no-results button {
+    padding: 10px 18px;
+    border: 1px solid #333;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.no-results button:hover {
+    background: #333;
+    color: white;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 </style>

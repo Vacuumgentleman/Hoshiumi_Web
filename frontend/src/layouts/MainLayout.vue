@@ -2,6 +2,7 @@
 import { useCartStore } from "@/stores/cart"
 import { useThemeStore } from "@/stores/theme"
 import CartDrawer from "@/components/CartDrawer.vue"
+import Footer from "@/components/Footer.vue"
 
 const cart = useCartStore()
 const theme = useThemeStore()
@@ -39,6 +40,9 @@ const theme = useThemeStore()
     </main>
 
     <CartDrawer />
+
+    <Footer />
+
   </div>
 </template>
 
@@ -120,5 +124,9 @@ const theme = useThemeStore()
   background: var(--bg);
   color: var(--text);
   transition: 0.3s ease;
+}
+
+main {
+  flex: 1;
 }
 </style>
