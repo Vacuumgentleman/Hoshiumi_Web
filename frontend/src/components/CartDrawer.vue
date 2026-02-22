@@ -16,7 +16,11 @@ const cart = useCartStore()
     </div>
 
     <div v-if="cart.items.length === 0" class="empty">
-      Your cart is empty
+        <div class="empty-content">
+            <div class="empty-icon">🛒</div>
+            <h3>Your cart is empty</h3>
+            <p>Add some art to begin your collection.</p>
+        </div>
     </div>
 
     <div v-else class="items">
@@ -157,5 +161,33 @@ const cart = useCartStore()
   color: white;
   border: none;
   cursor: pointer;
+}
+
+.empty {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.empty-content {
+  opacity: 0.8;
+}
+
+.empty-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.empty h3 {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.empty p {
+  font-size: 0.9rem;
+  color: #777;
 }
 </style>

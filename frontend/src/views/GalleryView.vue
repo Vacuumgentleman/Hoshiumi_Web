@@ -193,4 +193,28 @@ const filteredProducts = computed(() => {
   transform: scale(1.02);
   transition: 0.3s ease;
 }
+.filters {
+  display: flex;
+  gap: 1rem;
+  margin: 2rem 0 3rem 0;
+  flex-wrap: wrap;
+}
+
+.filters input,
+.filters select {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #ccc;
+  background: transparent;
+  font-size: 0.9rem;
+}
+
+.filters input {
+  min-width: 220px;
+}
+
+.filters input:focus,
+.filters select:focus {
+  outline: none;
+  border-color: black;
+}
 </style>
