@@ -3,7 +3,7 @@ import type { Product } from "@/types/product"
 
 export const useFavoritesStore = defineStore("favorites", {
   state: () => ({
-    items: [] as Product[],
+    items: JSON.parse(localStorage.getItem("favorites") || "[]") as Product[],
   }),
 
   actions: {
@@ -15,10 +15,16 @@ export const useFavoritesStore = defineStore("favorites", {
       } else {
         this.items.push(product)
       }
+
+      this.save()
     },
 
     isFavorite(id: string) {
       return this.items.some(p => p.id === id)
-    }
-  }
+    },
+
+    save() {
+      localStorage.setItem("favorites", JSON.stringify(this.items))
+    },
+  },
 })

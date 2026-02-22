@@ -1,14 +1,15 @@
 import { defineStore } from "pinia"
 import type { Product } from "@/types/product"
 
-interface CartItem {
+export interface CartItem {
   product: Product
   quantity: number
 }
 
 export const useCartStore = defineStore("cart", {
   state: () => ({
-    items: JSON.parse(localStorage.getItem("cart") || "[]") as CartItem[],
+    items: [] as CartItem[],
+    isOpen: false,
   }),
 
   getters: {
@@ -19,21 +20,36 @@ export const useCartStore = defineStore("cart", {
       ),
 
     totalItems: (state) =>
-      state.items.reduce((total, item) => total + item.quantity, 0),
+      state.items.reduce(
+        (total, item) => total + item.quantity,
+        0
+      ),
   },
 
   actions: {
-    addToCart(product: Product) {
+    openCart() {
+      this.isOpen = true
+    },
+
+    closeCart() {
+      this.isOpen = false
+    },
+
+    addToCart(product: Product, qty = 1) {
       const existing = this.items.find(
         (item) => item.product.id === product.id
       )
 
       if (existing) {
-        existing.quantity++
+        existing.quantity += qty
       } else {
-        this.items.push({ product, quantity: 1 })
+        this.items.push({
+          product,
+          quantity: qty,
+        })
       }
 
+      this.openCart()
       this.saveCart()
     },
 
@@ -45,14 +61,14 @@ export const useCartStore = defineStore("cart", {
     },
 
     decreaseQuantity(id: string) {
-      const existing = this.items.find(
+      const item = this.items.find(
         (item) => item.product.id === id
       )
 
-      if (!existing) return
+      if (!item) return
 
-      if (existing.quantity > 1) {
-        existing.quantity--
+      if (item.quantity > 1) {
+        item.quantity--
       } else {
         this.removeFromCart(id)
       }
@@ -62,6 +78,13 @@ export const useCartStore = defineStore("cart", {
 
     saveCart() {
       localStorage.setItem("cart", JSON.stringify(this.items))
+    },
+
+    loadCart() {
+      const saved = localStorage.getItem("cart")
+      if (saved) {
+        this.items = JSON.parse(saved)
+      }
     },
   },
 })

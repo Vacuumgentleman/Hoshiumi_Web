@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { useCartStore } from "@/stores/cart"
-import { useUIStore } from "@/stores/ui"
 import CartDrawer from "@/components/CartDrawer.vue"
+
 const cart = useCartStore()
-const ui = useUIStore()
 </script>
 
 <template>
@@ -16,20 +15,36 @@ const ui = useUIStore()
       <div class="links">
         <RouterLink to="/gallery">Galería</RouterLink>
         <RouterLink to="/about">Sobre</RouterLink>
-      <div class="cart-button" @click="ui.openCart">
-        🛒 {{ cart.totalItems }}
-      </div>
+
+        <!-- Cart Button -->
+        <button class="cart-button" @click="cart.openCart">
+          🛒
+          <span
+            v-if="cart.totalItems > 0"
+            class="badge"
+          >
+            {{ cart.totalItems }}
+          </span>
+        </button>
       </div>
     </nav>
 
     <main>
-      <router-view />
-      <CartDrawer /> 
+      <RouterView />
     </main>
+
+    <!-- IMPORTANTE: fuera del main -->
+    <CartDrawer />
   </div>
 </template>
 
 <style scoped>
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -44,23 +59,45 @@ const ui = useUIStore()
   font-size: 1.3rem;
   letter-spacing: 2px;
   text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
 }
 
 .links a {
-  margin-left: 2rem;
   font-size: 0.95rem;
   color: var(--color-muted);
   transition: 0.2s ease;
+  text-decoration: none;
 }
 
 .links a:hover {
   color: var(--color-text);
 }
 
-.cart {
-  background: var(--color-accent);
-  padding: 0.4rem 0.8rem;
-  border-radius: 20px;
-  color: rgb(0, 0, 0) !important;
+/* Cart button */
+.cart-button {
+  position: relative;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* Badge */
+.badge {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  background: black;
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 50%;
 }
 </style>

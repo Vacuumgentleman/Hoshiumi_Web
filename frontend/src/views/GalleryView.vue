@@ -14,14 +14,18 @@ const cart = useCartStore()
     <div class="grid">
       <div v-for="product in products" :key="product.id" class="card">
         <div class="image-wrapper">
-          <img :src="product.image" />
+          <RouterLink :to="`/product/${product.id}`">
+            <img :src="product.image" />
+          </RouterLink>
 
+          <!-- Add to cart overlay -->
           <div class="overlay">
             <button @click="cart.addToCart(product)">
               Añadir al carrito
             </button>
           </div>
 
+          <!-- Favorite -->
           <button
             class="favorite"
             @click="favorites.toggleFavorite(product)"
@@ -38,6 +42,10 @@ const cart = useCartStore()
 </template>
 
 <style scoped>
+.shop {
+  padding: 4rem 6rem;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -62,7 +70,6 @@ const cart = useCartStore()
   transform: scale(1.03);
 }
 
-/* Overlay hover */
 .overlay {
   position: absolute;
   inset: 0;
@@ -83,9 +90,9 @@ const cart = useCartStore()
   border: none;
   padding: 0.8rem 1.5rem;
   letter-spacing: 1px;
+  cursor: pointer;
 }
 
-/* Favorite */
 .favorite {
   position: absolute;
   top: 20px;
@@ -95,6 +102,7 @@ const cart = useCartStore()
   border: none;
   padding: 0.5rem 0.6rem;
   cursor: pointer;
+  font-size: 1rem;
 }
 
 .card h3 {
@@ -107,6 +115,7 @@ const cart = useCartStore()
   color: #888;
   margin-top: 0.3rem;
 }
+
 @media (max-width: 1024px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
