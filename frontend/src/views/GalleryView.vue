@@ -2,18 +2,67 @@
 import { products } from "@/data/products"
 import { useFavoritesStore } from "@/stores/favorites"
 import { useCartStore } from "@/stores/cart"
+import { ref, computed } from "vue"
+
+const search = ref("")
+const selectedCategory = ref("all")
+const sortOrder = ref("default")
 
 const favorites = useFavoritesStore()
 const cart = useCartStore()
+const filteredProducts = computed(() => {
+  let result = [...products]
+
+  // 🔎 Buscar por nombre
+  if (search.value.trim() !== "") {
+    result = result.filter(product =>
+      product.name.toLowerCase().includes(search.value.toLowerCase())
+    )
+  }
+
+  // 🏷 Filtrar por categoría
+  if (selectedCategory.value !== "all") {
+    result = result.filter(
+      product => product.category === selectedCategory.value
+    )
+  }
+
+  // 💰 Ordenar
+  if (sortOrder.value === "price-asc") {
+    result.sort((a, b) => a.price - b.price)
+  } else if (sortOrder.value === "price-desc") {
+    result.sort((a, b) => b.price - a.price)
+  }
+
+  return result
+})
 </script>
 
 <template>
   <section class="shop">
     <h1>SHOP</h1>
+    <div class="filters">
+      <input
+        v-model="search"
+        type="text"
+        placeholder="Buscar obra..."
+      />
 
+      <select v-model="selectedCategory">
+        <option value="all">Todas</option>
+        <option value="digital">Digital</option>
+        <option value="traditional">Traditional</option>
+      </select>
+
+      <select v-model="sortOrder">
+        <option value="default">Ordenar</option>
+        <option value="price-asc">Precio ↑</option>
+        <option value="price-desc">Precio ↓</option>
+      </select>
+    </div>
     <div class="grid">
-      <div v-for="product in products" :key="product.id" class="card">
-        <div class="image-wrapper">
+      <div v-for="product in filteredProducts" :key="product.id" :class="['card',favorites.isFavorite(product.id) ? 'favorite-active' : '' ]">
+          <div class="image-wrapper">
           <RouterLink :to="`/product/${product.id}`">
             <img :src="product.image" />
           </RouterLink>
@@ -37,6 +86,13 @@ const cart = useCartStore()
         <h3>{{ product.name }}</h3>
         <p>{{ product.price }} €</p>
       </div>
+    </div>
+        <div v-if="filteredProducts.length === 0 && search">
+      No se encontraron resultados
+      </div>
+
+      <div v-else-if="products.length === 0">
+        No hay productos disponibles
     </div>
   </section>
 </template>
@@ -132,5 +188,9 @@ const cart = useCartStore()
   .shop {
     padding: 2rem;
   }
+}
+.favorite-active {
+  transform: scale(1.02);
+  transition: 0.3s ease;
 }
 </style>

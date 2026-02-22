@@ -12,7 +12,6 @@ const router = createRouter({
     { path: "/gallery", name: "gallery", component: GalleryView },
     { path: "/cart", name: "cart", component: CartView },
     { path: "/about", name: "about", component: AboutView },
-    { path: "/product/:id", name: "product",component: () => import("@/views/ProductView.vue")},
     { path: "/checkout",  name: "checkout", component: () => import("@/views/CheckoutView.vue")},
     { path: "/success", name: "success", component: () => import("@/views/SuccessView.vue")},
     { path: "/product/:id", name: "product", component: () => import("@/views/ProductDetailView.vue"), props: true,}

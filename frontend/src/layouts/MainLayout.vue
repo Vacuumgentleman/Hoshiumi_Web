@@ -1,18 +1,23 @@
 <script setup lang="ts">
 import { useCartStore } from "@/stores/cart"
+import { useThemeStore } from "@/stores/theme"
 import CartDrawer from "@/components/CartDrawer.vue"
 
 const cart = useCartStore()
+const theme = useThemeStore()
 </script>
 
 <template>
-  <div class="layout">
+  <div :class="['layout', theme.dark ? 'dark' : 'light']">
     <nav class="navbar">
       <RouterLink to="/" class="logo">
         Hoshiumi
       </RouterLink>
 
       <div class="links">
+        <button class="theme-toggle" @click="theme.toggleTheme">
+          {{ theme.dark ? "☀️" : "🌙" }}
+        </button>
         <RouterLink to="/gallery">Galería</RouterLink>
         <RouterLink to="/about">Sobre</RouterLink>
 
@@ -33,7 +38,6 @@ const cart = useCartStore()
       <RouterView />
     </main>
 
-    <!-- IMPORTANTE: fuera del main -->
     <CartDrawer />
   </div>
 </template>
@@ -99,5 +103,22 @@ const cart = useCartStore()
   font-size: 0.7rem;
   padding: 2px 6px;
   border-radius: 50%;
+}
+.light {
+  --bg: #ffffff;
+  --text: #111;
+  --surface: #f5f5f5;
+}
+
+.dark {
+  --bg: #111;
+  --text: #f5f5f5;
+  --surface: #1c1c1c;
+}
+
+.layout {
+  background: var(--bg);
+  color: var(--text);
+  transition: 0.3s ease;
 }
 </style>
