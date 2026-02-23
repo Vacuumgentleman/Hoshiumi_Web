@@ -4,12 +4,16 @@ import { useThemeStore } from "@/stores/theme"
 import CartDrawer from "@/components/CartDrawer.vue"
 import Footer from "@/components/Footer.vue"
 import logo from "@/assets/images/hoshiumi-logo.png"
+import "@/assets/styles/theme.css"
+
 const cart = useCartStore()
 const theme = useThemeStore()
 </script>
 
 <template>
   <div :class="['layout', theme.dark ? 'dark' : 'light']">
+
+    <!-- NAVBAR -->
     <nav class="navbar">
       <RouterLink to="/" class="logo">
         <img :src="logo" alt="Hoshiumi Logo" />
@@ -19,16 +23,14 @@ const theme = useThemeStore()
         <button class="theme-toggle" @click="theme.toggleTheme">
           {{ theme.dark ? "☀️" : "🌙" }}
         </button>
+
         <RouterLink to="/gallery">Galería</RouterLink>
         <RouterLink to="/about">Sobre</RouterLink>
 
-        <!-- Cart Button -->
-        <button class="cart-button" @click="cart.openCart">
+        <button class="cart-button" @click="cart.openCart()">
           🛒
-          <span
-            v-if="cart.totalItems > 0"
-            class="badge"
-          >
+          <i class="icon-cart"></i>
+          <span v-if="cart.totalItems > 0" class="cart-badge">
             {{ cart.totalItems }}
           </span>
         </button>
@@ -40,7 +42,6 @@ const theme = useThemeStore()
     </main>
 
     <CartDrawer />
-
     <Footer />
 
   </div>
@@ -48,27 +49,26 @@ const theme = useThemeStore()
 
 <style scoped>
 .layout {
+  background: var(--bg);
+  color: var(--text);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  transition: 0.3s ease;
 }
 
+/* NAVBAR */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 3rem;
-  background: var(--color-surface);
-  border-bottom: 1px solid #222;
+  background: var(--surface);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
-.logo {
-  font-weight: 600;
-  font-size: 1.3rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--color-text);
+.logo img {
+  height: 38px;
 }
 
 .links {
@@ -78,59 +78,53 @@ const theme = useThemeStore()
 }
 
 .links a {
-  font-size: 0.95rem;
-  color: var(--color-muted);
-  transition: 0.2s ease;
+  color: var(--text);
   text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  transition: 0.2s ease;
 }
 
 .links a:hover {
-  color: var(--color-text);
+  opacity: 0.7;
 }
 
-/* Cart button */
+/* ACTIVE ROUTE */
+.links a.router-link-exact-active {
+  color: var(--primary-blue);
+}
+
+.links a.router-link-exact-active::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--primary-blue);
+}
+
+/* CART */
 .cart-button {
-  position: relative;
   background: none;
   border: none;
   font-size: 1.2rem;
   cursor: pointer;
+  color: var(--text);
 }
 
-/* Badge */
 .badge {
   position: absolute;
   top: -6px;
   right: -10px;
-  background: black;
+  background: var(--primary-blue);
   color: white;
   font-size: 0.7rem;
   padding: 2px 6px;
   border-radius: 50%;
 }
-.light {
-  --bg: #b1cae8a6;
-  --text: #111;
-  --surface: #f5f5f5;
-}
-
-.dark {
-  --bg: #111;
-  --text: #f5f5f5;
-  --surface: #1c1c1c;
-}
-
-.layout {
-  background: var(--bg);
-  color: var(--text);
-  transition: 0.3s ease;
-}
 
 main {
   flex: 1;
-}
-.logo img {
-  height: 40px;
-  object-fit: contain;
 }
 </style>

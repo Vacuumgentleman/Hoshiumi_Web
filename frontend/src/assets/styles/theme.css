@@ -1,0 +1,38 @@
+:root {
+  /* Marca */
+  --primary-blue: #1e3a66;
+  --primary-blue-dark: #162c4d;
+
+  /* Light */
+  --bg-light: #eaf3ff;
+  --surface-light: #ffffff;
+  --text-light: #1e3a66;
+
+  /* Dark */
+  --bg-dark: #0f1724;
+  --surface-dark: #162033;
+  --text-dark: #7fb3ff;
+
+  /* Estados */
+  --success: #4caf50;
+  --error: #ff4d4d;
+
+  --radius: 8px;
+  --transition: 0.25s ease;
+}
+
+/* ============ LIGHT MODE ============ */
+
+.light {
+  --bg: var(--bg-light);
+  --surface: var(--surface-light);
+  --text: var(--text-light);
+}
+
+/* ============ DARK MODE ============ */
+
+.dark {
+  --bg: var(--bg-dark);
+  --surface: var(--surface-dark);
+  --text: var(--text-dark);
+}

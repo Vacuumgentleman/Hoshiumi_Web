@@ -1,66 +1,3 @@
-<template>
-  <footer class="footer">
-    <div class="footer-container">
-
-      <!-- Marca -->
-      <div class="footer-brand">
-        <h3>HOSHUMI</h3>
-        <p>Arte minimalista contemporáneo</p>
-      </div>
-
-      <!-- Newsletter -->
-      <div class="footer-newsletter">
-        <p>Suscríbete al newsletter</p>
-        <div class="newsletter-form">
-          <input
-            type="email"
-            placeholder="Tu correo"
-            v-model="email"
-          />
-          <button @click="subscribe">Enviar</button>
-        </div>
-      </div>
-
-      <!-- Redes -->
-      <div class="footer-social">
-        <a href="https://instagram.com" target="_blank" aria-label="Instagram">
-          <!-- Instagram SVG -->
-          <svg viewBox="0 0 24 24" class="icon">
-            <path fill="currentColor"
-              d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 
-              5-5V7c0-2.8-2.2-5-5-5H7zm5 5.2A4.8 4.8 0 1 1 7.2 12 
-              4.8 4.8 0 0 1 12 7.2zm6.4-.9a1.2 1.2 0 1 1-1.2-1.2 
-              1.2 1.2 0 0 1 1.2 1.2z"/>
-          </svg>
-        </a>
-
-        <a href="https://twitter.com" target="_blank" aria-label="Twitter">
-          <svg viewBox="0 0 24 24" class="icon">
-            <path fill="currentColor"
-              d="M22 5.8c-.8.4-1.6.6-2.5.8a4.3 4.3 0 0 
-              0 1.9-2.4c-.8.5-1.8.9-2.8 1.1A4.3 4.3 0 0 
-              0 11 9.5a12.2 12.2 0 0 1-8.9-4.5 
-              4.3 4.3 0 0 0 1.3 5.7c-.7 0-1.4-.2-2-.5 
-              v.1a4.3 4.3 0 0 0 3.5 4.2c-.6.2-1.2.2-1.8.1 
-              a4.3 4.3 0 0 0 4 3 
-              A8.6 8.6 0 0 1 2 19.5a12.1 12.1 0 0 0 
-              6.6 1.9c7.9 0 12.2-6.5 12.2-12.2v-.6c.8-.6 1.5-1.4 2-2.3z"/>
-          </svg>
-        </a>
-      </div>
-
-    </div>
-
-    <!-- Legal -->
-    <div class="footer-bottom">
-      © 2026 Hoshiumi ·
-      <RouterLink to="/privacy">Privacy Policy</RouterLink> ·
-      <RouterLink to="/terms">Terms of Service</RouterLink> ·
-      <RouterLink to="/cookies">Cookies Policy</RouterLink>
-    </div>
-  </footer>
-</template>
-
 <script setup lang="ts">
 import { ref } from "vue"
 
@@ -77,72 +14,129 @@ const subscribe = () => {
   error.value = ""
   success.value = ""
 
-  if (!email.value) {
-    error.value = "Introduce un correo"
-    return
-  }
-
   if (!validateEmail(email.value)) {
-    error.value = "Correo no válido"
+    error.value = "Introduce un correo válido"
     return
   }
 
-  // Aquí iría el POST al backend en el futuro
-  success.value = "Suscripción exitosa ✨"
+  success.value = "¡Suscripción exitosa!"
   email.value = ""
 }
 </script>
 
+<template>
+  <footer class="footer">
+
+    <div class="footer-grid">
+
+      <!-- MARCA -->
+      <div class="brand">
+        <h3>HOSHUMI</h3>
+        <p>Arte minimalista contemporáneo</p>
+      </div>
+
+      <!-- NEWSLETTER -->
+      <div class="newsletter">
+        <h4>Suscríbete al newsletter</h4>
+
+        <form @submit.prevent="subscribe" class="newsletter-form">
+          <input
+            type="email"
+            placeholder="Ingresa tu correo electrónico"
+            v-model="email"
+            required
+          />
+          <button type="submit">Suscribirme</button>
+        </form>
+
+        <p v-if="error" class="error">{{ error }}</p>
+        <p v-if="success" class="success">{{ success }}</p>
+      </div>
+
+      <!-- SOCIAL -->
+      <div class="social">
+        <a href="#" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" class="icon">
+            <path fill="currentColor"
+              d="M7 2C4 2 2 4 2 7v10c0 3 2 5 5 5h10c3 0 5-2 5-5V7c0-3-2-5-5-5H7z"/>
+          </svg>
+        </a>
+
+        <a href="#" aria-label="Twitter">
+          <svg viewBox="0 0 24 24" class="icon">
+            <path fill="currentColor"
+              d="M22 5.9c-.7.3-1.5.5-2.3.6.8-.5 1.4-1.3 1.7-2.2-.8.4-1.6.7-2.5.9a4 4 0 0 0-7 3.6A11.3 11.3 0 0 1 3 4.9a4 4 0 0 0 1.2 5.3c-.6 0-1.2-.2-1.7-.5v.1a4 4 0 0 0 3.2 4"/>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      © 2026 Hoshiumi ·
+      <RouterLink to="/privacy">Privacy</RouterLink> ·
+      <RouterLink to="/terms">Terms</RouterLink> ·
+      <RouterLink to="/cookies">Cookies</RouterLink>
+    </div>
+
+  </footer>
+</template>
+
 <style scoped>
+.footer {
+  background: var(--surface);
+  padding: 4rem 2rem 2rem;
+}
 
-.footer-container {
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* AZUL */
+.brand h3,
+.newsletter h4 {
+  color: var(--primary-blue);
+}
+
+.newsletter {
+  text-align: center;
+}
+
+.newsletter-form {
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 2.5rem;
-}
-
-.footer-newsletter input {
-  padding: 0.5rem;
-  border: 1px solid #444;
-  background: transparent;
-  color: var(--text);
-}
-
-.footer-newsletter button {
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--text);
-  background: transparent;
-  color: var(--text);
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.footer-newsletter button:hover {
-  background: var(--text);
-  color: var(--bg);
-}
-
-.footer-social {
-  display: flex;
+  justify-content: center;
   gap: 1rem;
 }
 
-.icon {
-  width: 20px;
-  height: 20px;
-  opacity: 0.7;
-  transition: 0.2s ease;
+.newsletter input {
+  padding: 0.8rem 1rem;
+  border: 2px solid var(--primary-blue);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text);
+  min-width: 260px;
 }
 
-.icon:hover {
-  opacity: 1;
+.newsletter button {
+  padding: 0.8rem 1.5rem;
+  background: var(--primary-blue);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.icon {
+  width: 22px;
+  height: 22px;
+  color: var(--primary-blue);
 }
 
 .footer-bottom {
-  margin-top: 2rem;
-  font-size: 0.75rem;
-  opacity: 0.7;
+  margin-top: 3rem;
   text-align: center;
 }
 
@@ -150,57 +144,9 @@ const subscribe = () => {
   color: var(--text);
   text-decoration: none;
 }
-.newsletter-error {
-  font-size: 0.75rem;
-  color: #ff4d4d;
-  margin-top: 0.5rem;
-}
-
-.newsletter-success {
-  font-size: 0.75rem;
-  color: #4caf50;
-  margin-top: 0.5rem;
-}
-
-
-
-.footer {
-  margin-top: auto;
-  padding: 3rem;
-  border-top: 1px solid var(--color-muted);
-  background: var(--color-surface);
-  transition: 0.3s ease;
-}
-
-.footer h3 {
-  letter-spacing: 2px;
-}
-
-.footer-newsletter input {
-  padding: 0.6rem;
-  border: 1px solid var(--color-muted);
-  background: transparent;
-  color: var(--color-text);
-  border-radius: 4px;
-}
-
-.footer-newsletter button {
-  padding: 0.6rem 1rem;
-  border: 1px solid var(--color-text);
-  background: transparent;
-  color: var(--color-text);
-  cursor: pointer;
-  transition: 0.2s ease;
-  border-radius: 4px;
-}
-
-.footer-newsletter button:hover {
-  background: var(--color-text);
-  color: var(--bg);
-}
 
 .footer-bottom a.router-link-exact-active {
-  font-weight: 600;
+  color: var(--primary-blue);
   text-decoration: underline;
 }
 </style>

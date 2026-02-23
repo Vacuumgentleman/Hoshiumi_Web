@@ -1,53 +1,32 @@
 <script setup lang="ts">
-import { products } from "@/data/products"
 import { useFavoritesStore } from "@/stores/favorites"
 import { useCartStore } from "@/stores/cart"
-import { ref, computed } from "vue"
-
-const search = ref("")
-const selectedCategory = ref("all")
-const sortOrder = ref("default")
+import { useProducts } from "@/composables/useProducts"
+import { useRouter } from "vue-router"
 
 const favorites = useFavoritesStore()
 const cart = useCartStore()
-const filteredProducts = computed(() => {
-  let result = [...products]
+const router = useRouter()
 
-  // 🔎 Buscar por nombre
-  if (search.value.trim() !== "") {
-    result = result.filter(product =>
-      product.name.toLowerCase().includes(search.value.toLowerCase())
-    )
-  }
+const {
+  allProducts,
+  search,
+  selectedCategory,
+  sortOrder,
+  filteredProducts,
+  resetFilters
+} = useProducts()
 
-  // 🏷 Filtrar por categoría
-  if (selectedCategory.value !== "all") {
-    result = result.filter(
-      product => product.category === selectedCategory.value
-    )
-  }
-
-  // 💰 Ordenar
-  if (sortOrder.value === "price-asc") {
-    result.sort((a, b) => a.price - b.price)
-  } else if (sortOrder.value === "price-desc") {
-    result.sort((a, b) => b.price - a.price)
-  }
-
-  return result
-})
-
-function resetFilters() {
-  search.value = ""
-  selectedCategory.value = "all"
-  sortOrder.value = "default"
+function goToProduct(id: string) {
+  router.push(`/product/${id}`)
 }
-
 </script>
 
 <template>
   <section class="shop">
     <h1>SHOP</h1>
+
+    <!-- Filtros -->
     <div class="filters">
       <input
         v-model="search"
@@ -67,26 +46,46 @@ function resetFilters() {
         <option value="price-desc">Precio ↓</option>
       </select>
     </div>
-    <div class="grid">
-      <div v-for="product in filteredProducts" :key="product.id" :class="['card',favorites.isFavorite(product.id) ? 'favorite-active' : '' ]">
-          <div class="image-wrapper">
-          <RouterLink :to="`/product/${product.id}`">
-            <img :src="product.image" />
-          </RouterLink>
 
-          <!-- Add to cart overlay -->
+    <!-- No hay productos -->
+    <div v-if="allProducts.length === 0" class="no-results">
+      <div class="no-results-icon">📦</div>
+      <h3>No hay productos disponibles</h3>
+      <p>Estamos preparando nuevas obras para ti.</p>
+    </div>
+
+    <!-- No hay resultados -->
+    <div v-else-if="filteredProducts.length === 0" class="no-results">
+      <div class="no-results-icon">🔍</div>
+      <h3>No se encontraron resultados</h3>
+      <p>Intenta con otro nombre o cambia los filtros.</p>
+      <button @click="resetFilters">Ver todas las obras</button>
+    </div>
+
+    <!-- Grid -->
+    <div v-else class="grid">
+      <div
+        v-for="product in filteredProducts"
+        :key="product.id"
+        class="card"
+        @click="goToProduct(product.id)"
+      >
+        <div class="image-wrapper">
+          <img :src="product.image" />
+
+          <!-- Overlay -->
           <div class="overlay">
-            <button @click="cart.addToCart(product)">
+            <button @click.stop="cart.addToCart(product)">
               Añadir al carrito
             </button>
           </div>
 
-          <!-- Favorite -->
+          <!-- Favorito -->
           <button
-            class="favorite"
-            @click="favorites.toggleFavorite(product)"
+            class="favorite-btn"
+            @click.stop="favorites.toggleFavorite(product)"
           >
-            {{ favorites.isFavorite(product.id) ? "❤️" : "♡" }}
+            {{ favorites.isFavorite(product.id) ? "❤️" : "🤍" }}
           </button>
         </div>
 
@@ -94,197 +93,155 @@ function resetFilters() {
         <p>{{ product.price }} €</p>
       </div>
     </div>
-        <div v-if="filteredProducts.length === 0 && search">
-      No se encontraron resultados
-      </div>
-
-      <div v-else-if="products.length === 0">
-        No hay productos disponibles
-    </div>
-    
-
-    <div v-if="filteredProducts.length === 0 && search">
-      <div class="no-results">
-          <div class="no-results-icon">🔍</div>
-          <h3>No se encontraron resultados</h3>
-          <p>Intenta con otro nombre o cambia los filtros.</p>
-          <button @click="resetFilters">Ver todas las obras</button>
-      </div>
-    </div>
-
-    <div v-else-if="products.length === 0">
-        <div class="no-results">
-            <div class="no-results-icon">📦</div>
-            <h3>No hay productos disponibles</h3>
-            <p>Estamos preparando nuevas obras para ti.</p>
-        </div>
-    </div>
-
-
   </section>
 </template>
 
 <style scoped>
 .shop {
   padding: 4rem 6rem;
+  background: var(--bg);
+  color: var(--text);
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 6rem;
+h1 {
+  color: var(--primary-blue);
 }
 
-.card {
-  text-align: center;
-}
-
-.image-wrapper {
-  position: relative;
-  overflow: hidden;
-}
-
-.image-wrapper img {
-  width: 100%;
-  transition: transform 0.5s ease;
-}
-
-.image-wrapper:hover img {
-  transform: scale(1.03);
-}
-
-.overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.image-wrapper:hover .overlay {
-  opacity: 1;
-}
-
-.overlay button {
-  background: white;
-  border: none;
-  padding: 0.8rem 1.5rem;
-  letter-spacing: 1px;
-  cursor: pointer;
-}
-
-.favorite {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: white;
-  border-radius: 50%;
-  border: none;
-  padding: 0.5rem 0.6rem;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.card h3 {
-  margin-top: 1rem;
-  font-weight: 500;
-  letter-spacing: 1px;
-}
-
-.card p {
-  color: #888;
-  margin-top: 0.3rem;
-}
-
-@media (max-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 4rem;
-  }
-}
-
-@media (max-width: 640px) {
-  .grid {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-
-  .shop {
-    padding: 2rem;
-  }
-}
-.favorite-active {
-  transform: scale(1.02);
-  transition: 0.3s ease;
-}
 .filters {
   display: flex;
   gap: 1rem;
-  margin: 2rem 0 3rem 0;
-  flex-wrap: wrap;
+  margin-bottom: 3rem;
 }
 
 .filters input,
 .filters select {
   padding: 0.6rem 0.8rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--primary-blue);
   background: transparent;
-  font-size: 0.9rem;
-}
-
-.filters input {
-  min-width: 220px;
+  color: var(--text);
 }
 
 .filters input:focus,
 .filters select:focus {
   outline: none;
-  border-color: black;
+  border-color: var(--primary-blue);
 }
 
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+}
+
+/* CARD */
+.card {
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+}
+
+/* IMAGE */
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.card:hover img {
+  transform: scale(1.08);
+}
+
+/* OVERLAY */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(30, 58, 102, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover .overlay {
+  opacity: 1;
+}
+
+.overlay button {
+  background: var(--primary-blue);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.overlay button:hover {
+  transform: scale(1.05);
+}
+
+/* FAVORITE */
+.favorite-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--surface);
+  border: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.1);
+}
+
+/* TEXT */
+.card h3 {
+  margin-top: 1rem;
+}
+
+.card p {
+  opacity: 0.7;
+}
+
+/* NO RESULTS */
 .no-results {
-    text-align: center;
-    padding: 100px 20px;
-    color: #444;
-    animation: fadeIn 0.4s ease;
-}
-
-.no-results-icon {
-    font-size: 42px;
-    margin-bottom: 15px;
-    opacity: 0.6;
-}
-
-.no-results h3 {
-    font-size: 22px;
-    font-weight: 500;
-    margin-bottom: 10px;
-}
-
-.no-results p {
-    font-size: 15px;
-    color: #777;
-    margin-bottom: 20px;
+  text-align: center;
+  margin-top: 4rem;
 }
 
 .no-results button {
-    padding: 10px 18px;
-    border: 1px solid #333;
-    background: transparent;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--primary-blue);
+  background: transparent;
+  color: var(--primary-blue);
+  cursor: pointer;
 }
 
 .no-results button:hover {
-    background: #333;
-    color: white;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+  background: var(--primary-blue);
+  color: white;
 }
 </style>

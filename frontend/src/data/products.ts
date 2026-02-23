@@ -7,17 +7,18 @@ export const products: Product[] = [
     description: "Ilustración digital inspirada en el océano nocturno.",
     price: 35,
     category: "digital",
-    image: "/images/moonlight.jpg",
+    image: "/src/assets/images/Miku.png",
     stock: 999,
     featured: true,
   },
   {
     id: "2",
-    name: "Ocean Spirit Print",
+    name: "ARCANE",
     description: "Print en papel de alta calidad tamaño A3.",
     price: 50,
     category: "print",
-    image: "/images/ocean.jpg",
+    image: "/src/assets/images/Arcane.png",
     stock: 10,
   },
+
 ]

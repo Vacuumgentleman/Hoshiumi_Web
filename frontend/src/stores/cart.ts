@@ -83,8 +83,12 @@ export const useCartStore = defineStore("cart", {
     loadCart() {
       const saved = localStorage.getItem("cart")
       if (saved) {
-        this.items = JSON.parse(saved)
+        try {
+          this.items = JSON.parse(saved)
+        } catch {
+          this.items = []
+        }
       }
-    },
+    }
   },
 })
