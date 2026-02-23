@@ -1,12 +1,23 @@
 <script setup lang="ts">
 import { useCartStore } from "@/stores/cart"
+import { useRouter } from "vue-router"
 
 const cart = useCartStore()
+const router = useRouter()
+
+function goToProduct(id: string) {
+  router.push(`/product/${id}`)
+  cart.closeCart()
+}
 </script>
 
 <template>
   <!-- Overlay -->
-  <div v-if="cart.isOpen" class="overlay" @click="cart.closeCart"></div>
+  <div
+    v-if="cart.isOpen"
+    class="overlay"
+    @click="cart.closeCart"
+  ></div>
 
   <!-- Drawer -->
   <aside :class="['drawer', cart.isOpen ? 'open' : '']">
@@ -16,11 +27,11 @@ const cart = useCartStore()
     </div>
 
     <div v-if="cart.items.length === 0" class="empty">
-        <div class="empty-content">
-            <div class="empty-icon">🛒</div>
-            <h3>Your cart is empty</h3>
-            <p>Add some art to begin your collection.</p>
-        </div>
+      <div class="empty-content">
+        <div class="empty-icon">🛒</div>
+        <h3>Your cart is empty</h3>
+        <p>Add some art to begin your collection.</p>
+      </div>
     </div>
 
     <div v-else class="items">
@@ -29,15 +40,31 @@ const cart = useCartStore()
         :key="item.product.id"
         class="item"
       >
-        <img :src="item.product.image" />
+        <!-- Imagen clickeable -->
+        <img
+          :src="item.product.image"
+          :alt="item.product.name"
+          class="clickable"
+          @click="goToProduct(item.product.id)"
+        />
 
         <div class="info">
-          <p class="name">{{ item.product.name }}</p>
+          <!-- Nombre clickeable -->
+          <p
+            class="name clickable"
+            @click="goToProduct(item.product.id)"
+          >
+            {{ item.product.name }}
+          </p>
 
           <div class="quantity-controls">
-            <button @click="cart.decreaseQuantity(item.product.id)">−</button>
+            <button @click="cart.decreaseQuantity(item.product.id)">
+              −
+            </button>
             <span>{{ item.quantity }}</span>
-            <button @click="cart.addToCart(item.product, 1)">+</button>
+            <button @click="cart.addToCart(item.product, 1)">
+              +
+            </button>
           </div>
 
           <p class="price">
@@ -56,7 +83,9 @@ const cart = useCartStore()
 
     <div class="footer" v-if="cart.items.length > 0">
       <p>Total: {{ cart.totalPrice }} €</p>
-      <button class="checkout">Checkout</button>
+      <button class="checkout">
+        Checkout
+      </button>
     </div>
   </aside>
 </template>
@@ -76,7 +105,8 @@ const cart = useCartStore()
   right: 0;
   width: 420px;
   height: 100vh;
-  background: white;
+  background: var(--bg);
+  color: var(--text);
   box-shadow: -10px 0 30px rgba(0,0,0,0.1);
   transform: translateX(100%);
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
@@ -93,7 +123,7 @@ const cart = useCartStore()
   display: flex;
   justify-content: space-between;
   padding: 1.5rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--surface);
 }
 
 .items {
@@ -110,7 +140,18 @@ const cart = useCartStore()
 
 .item img {
   width: 70px;
+  height: 90px;
   object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.clickable:hover {
+  opacity: 0.8;
 }
 
 .info {
@@ -131,7 +172,7 @@ const cart = useCartStore()
 .quantity-controls button {
   width: 28px;
   height: 28px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--surface);
   background: none;
   cursor: pointer;
 }
@@ -151,13 +192,13 @@ const cart = useCartStore()
 
 .footer {
   padding: 1.5rem;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--surface);
 }
 
 .checkout {
   width: 100%;
   padding: 0.9rem;
-  background: black;
+  background: var(--primary-blue);
   color: white;
   border: none;
   cursor: pointer;
@@ -179,15 +220,5 @@ const cart = useCartStore()
 .empty-icon {
   font-size: 2rem;
   margin-bottom: 1rem;
-}
-
-.empty h3 {
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-}
-
-.empty p {
-  font-size: 0.9rem;
-  color: #777;
 }
 </style>

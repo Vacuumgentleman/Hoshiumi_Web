@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed, ref } from "vue"
 import { useFavoritesStore } from "@/stores/favorites"
 import { useCartStore } from "@/stores/cart"
 import { useProducts } from "@/composables/useProducts"
@@ -7,6 +8,8 @@ import { useRouter } from "vue-router"
 const favorites = useFavoritesStore()
 const cart = useCartStore()
 const router = useRouter()
+
+const showOnlyFavorites = ref(false)
 
 const {
   allProducts,
@@ -20,8 +23,17 @@ const {
 function goToProduct(id: string) {
   router.push(`/product/${id}`)
 }
-</script>
 
+const finalProducts = computed(() => {
+  if (!showOnlyFavorites.value) {
+    return filteredProducts.value
+  }
+
+  return filteredProducts.value.filter(product =>
+    favorites.isFavorite(product.id)
+  )
+})
+</script>
 <template>
   <section class="shop">
     <h1>SHOP</h1>
@@ -45,6 +57,12 @@ function goToProduct(id: string) {
         <option value="price-asc">Precio ↑</option>
         <option value="price-desc">Precio ↓</option>
       </select>
+      <button
+        class="favorite-filter"
+        @click="showOnlyFavorites = !showOnlyFavorites"
+      >
+        {{ showOnlyFavorites ? "❤️ Solo favoritos" : "🤍 Mostrar todo" }}
+      </button>
     </div>
 
     <!-- No hay productos -->
@@ -65,7 +83,7 @@ function goToProduct(id: string) {
     <!-- Grid -->
     <div v-else class="grid">
       <div
-        v-for="product in filteredProducts"
+        v-for="product in finalProducts"
         :key="product.id"
         class="card"
         @click="goToProduct(product.id)"
