@@ -104,7 +104,7 @@ function goToProduct(id: string) {
 }
 
 h1 {
-  color: var(--primary-blue);
+  color: var(--text);
 }
 
 .filters {
