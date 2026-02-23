@@ -65,21 +65,35 @@
 import { ref } from "vue"
 
 const email = ref("")
+const error = ref("")
+const success = ref("")
+
+const validateEmail = (value: string) => {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return regex.test(value)
+}
 
 const subscribe = () => {
-  if (!email.value) return
-  alert("Gracias por suscribirte ✨")
+  error.value = ""
+  success.value = ""
+
+  if (!email.value) {
+    error.value = "Introduce un correo"
+    return
+  }
+
+  if (!validateEmail(email.value)) {
+    error.value = "Correo no válido"
+    return
+  }
+
+  // Aquí iría el POST al backend en el futuro
+  success.value = "Suscripción exitosa ✨"
   email.value = ""
 }
 </script>
 
 <style scoped>
-.footer {
-  margin-top: auto;
-  padding: 3rem;
-  border-top: 1px solid #222;
-  background: var(--surface);
-}
 
 .footer-container {
   display: flex;
@@ -135,5 +149,58 @@ const subscribe = () => {
 .footer-bottom a {
   color: var(--text);
   text-decoration: none;
+}
+.newsletter-error {
+  font-size: 0.75rem;
+  color: #ff4d4d;
+  margin-top: 0.5rem;
+}
+
+.newsletter-success {
+  font-size: 0.75rem;
+  color: #4caf50;
+  margin-top: 0.5rem;
+}
+
+
+
+.footer {
+  margin-top: auto;
+  padding: 3rem;
+  border-top: 1px solid var(--color-muted);
+  background: var(--color-surface);
+  transition: 0.3s ease;
+}
+
+.footer h3 {
+  letter-spacing: 2px;
+}
+
+.footer-newsletter input {
+  padding: 0.6rem;
+  border: 1px solid var(--color-muted);
+  background: transparent;
+  color: var(--color-text);
+  border-radius: 4px;
+}
+
+.footer-newsletter button {
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--color-text);
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: 0.2s ease;
+  border-radius: 4px;
+}
+
+.footer-newsletter button:hover {
+  background: var(--color-text);
+  color: var(--bg);
+}
+
+.footer-bottom a.router-link-exact-active {
+  font-weight: 600;
+  text-decoration: underline;
 }
 </style>

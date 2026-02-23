@@ -16,12 +16,13 @@
           </div>
 
           <div class="about-image">
-              <img src="/src/assets/images/pescado.png" alt="Studio Hoshiumi">
+              <img src="/src/assets/images/About.png" alt="Studio Hoshiumi">
           </div>
       </div>
   </section>
 </template>
 <style scoped>
+
 .about {
     padding: 100px 10%;
     background: #f8f8f8;

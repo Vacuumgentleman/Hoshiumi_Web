@@ -3,7 +3,7 @@ import { useCartStore } from "@/stores/cart"
 import { useThemeStore } from "@/stores/theme"
 import CartDrawer from "@/components/CartDrawer.vue"
 import Footer from "@/components/Footer.vue"
-
+import logo from "@/assets/images/hoshiumi-logo.png"
 const cart = useCartStore()
 const theme = useThemeStore()
 </script>
@@ -12,7 +12,7 @@ const theme = useThemeStore()
   <div :class="['layout', theme.dark ? 'dark' : 'light']">
     <nav class="navbar">
       <RouterLink to="/" class="logo">
-        Hoshiumi
+        <img :src="logo" alt="Hoshiumi Logo" />
       </RouterLink>
 
       <div class="links">
@@ -109,7 +109,7 @@ const theme = useThemeStore()
   border-radius: 50%;
 }
 .light {
-  --bg: #ffffff;
+  --bg: #b1cae8a6;
   --text: #111;
   --surface: #f5f5f5;
 }
@@ -128,5 +128,9 @@ const theme = useThemeStore()
 
 main {
   flex: 1;
+}
+.logo img {
+  height: 40px;
+  object-fit: contain;
 }
 </style>
