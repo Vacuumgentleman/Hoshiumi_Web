@@ -32,7 +32,7 @@ const subscribe = () => {
       <!-- MARCA -->
       <div class="brand">
         <h3>HOSHUMI</h3>
-        <p>Arte minimalista contemporáneo</p>
+        <p>Arte hecho con amor</p>
       </div>
 
       <!-- NEWSLETTER -->
@@ -55,18 +55,47 @@ const subscribe = () => {
 
       <!-- SOCIAL -->
       <div class="social">
-        <a href="#" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" class="icon">
-            <path fill="currentColor"
-              d="M7 2C4 2 2 4 2 7v10c0 3 2 5 5 5h10c3 0 5-2 5-5V7c0-3-2-5-5-5H7z"/>
-          </svg>
+        <a
+          href="https://instagram.com/hoshiumi.art"
+          target="_blank"
+          rel="noopener"
+          aria-label="Instagram"
+        >
+          <i class="fab fa-instagram"></i>
         </a>
 
-        <a href="#" aria-label="Twitter">
-          <svg viewBox="0 0 24 24" class="icon">
-            <path fill="currentColor"
-              d="M22 5.9c-.7.3-1.5.5-2.3.6.8-.5 1.4-1.3 1.7-2.2-.8.4-1.6.7-2.5.9a4 4 0 0 0-7 3.6A11.3 11.3 0 0 1 3 4.9a4 4 0 0 0 1.2 5.3c-.6 0-1.2-.2-1.7-.5v.1a4 4 0 0 0 3.2 4"/>
-          </svg>
+        <a
+          href="https://twitter.com/"
+          target="_blank"
+          rel="noopener"
+          aria-label="X"
+        >
+          <i class="fab fa-x-twitter"></i>
+        </a>
+
+        <a
+          href="https://pinterest.com/"
+          target="_blank"
+          rel="noopener"
+          aria-label="Pinterest"
+        >
+          <i class="fab fa-pinterest"></i>
+        </a>
+
+        <a
+          href="https://behance.net/"
+          target="_blank"
+          rel="noopener"
+          aria-label="Behance"
+        >
+          <i class="fab fa-behance"></i>
+        </a>
+
+        <a
+          href="mailto:contacto@hoshiumi.art"
+          aria-label="Email"
+        >
+          <i class="fas fa-envelope"></i>
         </a>
       </div>
 
@@ -83,6 +112,32 @@ const subscribe = () => {
 </template>
 
 <style scoped>
+
+.social {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+}
+
+.social a {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-blue);
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.social a:hover {
+  background: var(--primary-blue);
+  color: white;
+  transform: translateY(-4px);
+}
+
 .footer {
   background: var(--surface);
   padding: 4rem 2rem 2rem;

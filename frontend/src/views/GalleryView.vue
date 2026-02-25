@@ -58,10 +58,11 @@ const finalProducts = computed(() => {
         <option value="price-desc">Precio ↓</option>
       </select>
       <button
-        class="favorite-filter"
+        :class="['favorite-filter', showOnlyFavorites ? 'active' : '']"
         @click="showOnlyFavorites = !showOnlyFavorites"
       >
-        {{ showOnlyFavorites ? "❤️ Solo favoritos" : "🤍 Mostrar todo" }}
+        <span v-if="showOnlyFavorites">❤️ Solo favoritos</span>
+        <span v-else>🤍 Mostrar todo</span>
       </button>
     </div>
 
@@ -115,6 +116,31 @@ const finalProducts = computed(() => {
 </template>
 
 <style scoped>
+
+.favorite-filter {
+  padding: 0.6rem 1.2rem;
+  border-radius: 25px;
+  border: 1px solid var(--primary-blue);
+  background: transparent;
+  color: var(--primary-blue);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.favorite-filter:hover {
+  background: var(--primary-blue);
+  color: white;
+}
+
+/* Estado activo */
+.favorite-filter.active {
+  background: var(--primary-blue);
+  color: white;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+}
+
+
 .shop {
   padding: 4rem 6rem;
   background: var(--bg);

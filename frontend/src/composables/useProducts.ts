@@ -2,7 +2,7 @@ import { ref, computed } from "vue"
 import { products } from "@/data/products"
 
 export function useProducts() {
-  const allProducts = ref(products) // 🔥 esto es nuevo
+  const allProducts = ref(products)
   const search = ref("")
   const selectedCategory = ref("all")
   const sortOrder = ref("default")
