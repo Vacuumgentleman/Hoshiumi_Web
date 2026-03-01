@@ -1,5 +1,5 @@
 export type ProductCategory =
-  | "digital"
+  | "sticker"
   | "print"
   | "original"
   | "merch"

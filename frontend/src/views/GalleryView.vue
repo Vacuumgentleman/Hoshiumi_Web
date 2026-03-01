@@ -48,8 +48,8 @@ const finalProducts = computed(() => {
 
       <select v-model="selectedCategory">
         <option value="all">Todas</option>
-        <option value="digital">Digital</option>
-        <option value="traditional">Traditional</option>
+        <option value="print">Prints</option>
+        <option value="sticker">Stickers</option>
       </select>
 
       <select v-model="sortOrder">
