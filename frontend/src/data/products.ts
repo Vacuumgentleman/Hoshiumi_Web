@@ -7,7 +7,7 @@ export const products: Product[] = [
   {
     id: "1",
     name: "Arcane",
-    description: "Print artístico inspirado en estética fantástica y contrastes intensos. Impreso en papel premium A3.",
+    description: "Print artístico inspirado en la serie Arcane usa contrastes intensos en la escena que retrata a powder junto a ekko.",
     price: 50,
     category: "print",
     image: "/src/assets/images/Products/prints/Arcane.png",

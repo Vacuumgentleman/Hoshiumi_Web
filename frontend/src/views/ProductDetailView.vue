@@ -32,13 +32,9 @@ function addToCart() {
       <div class="info-section">
         <h1>{{ product.name }}</h1>
         <p class="price">{{ product.price }} €</p>
-
         <p class="description">
-          Obra original de la colección Hoshiumi.  
-          Técnica mixta sobre papel artístico.  
-          Edición limitada.
+          {{ product.description }}
         </p>
-
         <div class="quantity">
           <button @click="quantity > 1 && quantity--">−</button>
           <span>{{ quantity }}</span>
