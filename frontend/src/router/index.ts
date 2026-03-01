@@ -4,9 +4,10 @@ import HomeView from "@/views/HomeView.vue"
 import GalleryView from "@/views/GalleryView.vue"
 import CartView from "@/views/CartView.vue"
 import AboutView from "@/views/AboutView.vue"
-import Privacy from "@/views/Privacy.vue"
-import Terms from "@/views/Terms.vue"
-import Cookies from "@/views/Cookies.vue"
+//Legal
+import Privacy from "@/views/legal/Privacy.vue"
+import Terms from "@/views/legal/Terms.vue"
+import Cookies from "@/views/legal/Cookies.vue"
 
 const router = createRouter({
   history: createWebHistory(),
