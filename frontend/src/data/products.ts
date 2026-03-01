@@ -10,7 +10,7 @@ export const products: Product[] = [
     description: "Print artístico inspirado en la serie Arcane usa contrastes intensos en la escena que retrata a powder junto a ekko.",
     price: 50,
     category: "print",
-    image: "/src/assets/images/Products/prints/Arcane.png",
+    image: new URL("../assets/images/Products/prints/Arcane.png", import.meta.url).href,
     stock: 15,
     featured: true,
   },
@@ -21,7 +21,7 @@ export const products: Product[] = [
     description: "Ilustración vibrante con tonos pastel y estilo kawaii. Print tamaño A4 en papel de alta calidad.",
     price: 35,
     category: "print",
-    image: "/src/assets/images/Products/prints/Fresita.png",
+    image: new URL("../assets/images/Products/prints/Fresita.png", import.meta.url).href,
     stock: 20,
   },
 
@@ -31,7 +31,7 @@ export const products: Product[] = [
     description: "Print inspirado en Genshin Impact y la revista vogue, el estilo abarca fantasía acuática, colores suaves y detalles delicados.",
     price: 45,
     category: "print",
-    image: "/src/assets/images/Products/prints/Kokomi.jpeg",
+    image: new URL("../assets/images/Products/prints/Kokomi.jpeg", import.meta.url).href,
     stock: 12,
   },
 
@@ -41,7 +41,7 @@ export const products: Product[] = [
     description: "Ilustración dinámica con estilo pop japonés de la diva virtual Hatsune Miku. Impresión profesional en papel satinado.",
     price: 40,
     category: "print",
-    image: "/src/assets/images/Products/prints/Miku.png",
+    image: new URL("../assets/images/Products/prints/Miku.png", import.meta.url).href,
     stock: 18,
   },
 
@@ -51,7 +51,7 @@ export const products: Product[] = [
     description: "Ilustracion de la cantante Roseanne Park, cuenta con una composición atrevida con colores rosas y detalles de su hit apt.",
     price: 38,
     category: "print",
-    image: "/src/assets/images/Products/prints/Rose.jpeg",
+    image: new URL("../assets/images/Products/prints/Rose.jpeg", import.meta.url).href,
     stock: 14,
   },
 
@@ -61,7 +61,7 @@ export const products: Product[] = [
     description: "Print lleno de energía y dolor, inspirado en personaje Uraraka de la serie My Hero Academia.",
     price: 42,
     category: "print",
-    image: "/src/assets/images/Products/prints/Uraraka.png",
+    image: new URL("../assets/images/Products/prints/Uraraka.png", import.meta.url).href,
     stock: 16,
   },
 
@@ -73,7 +73,7 @@ export const products: Product[] = [
     description: "Pack de stickers basadon en la banda stay kids con una representacion de animales de cada uno.",
     price: 12,
     category: "sticker",
-    image: "/src/assets/images/Products/stickers/SKZOO.png",
+    image: new URL("../assets/images/Products/stickers/SKZOO.png", import.meta.url).href,
     stock: 50,
     featured: true,
   },
@@ -84,7 +84,7 @@ export const products: Product[] = [
     description: "Colección de stickers de la banda Ateez, con una representación en un animal adorable de cada uno de sus integrantes, con acabado mate premium.",
     price: 12,
     category: "sticker",
-    image: "/src/assets/images/Products/stickers/ANITEEZ.png",
+    image: new URL("../assets/images/Products/stickers/ANITEEZ.png", import.meta.url).href,
     stock: 50,
   },
 
@@ -96,7 +96,7 @@ export const products: Product[] = [
     description: "Sticker individual ilustrado con acabado brillante y resistente.",
     price: 4,
     category: "sticker",
-    image: "/src/assets/images/Products/stickers/Conejo.png",
+    image: new URL("../assets/images/Products/stickers/Conejo.png", import.meta.url).href,
     stock: 100,
   },
 
@@ -106,7 +106,7 @@ export const products: Product[] = [
     description: "Ilustración original en formato sticker, resistente al agua y rayones.",
     price: 4,
     category: "sticker",
-    image: "/src/assets/images/Products/stickers/Huron.png",
+    image: new URL("../assets/images/Products/stickers/Huron.png", import.meta.url).href,
     stock: 100,
   },
 
@@ -116,7 +116,7 @@ export const products: Product[] = [
     description: "Sticker colorido con acabado premium y adhesivo duradero.",
     price: 4,
     category: "sticker",
-    image: "/src/assets/images/Products/stickers/Loro.png",
+    image: new URL("../assets/images/Products/stickers/Loro.png", import.meta.url).href,
     stock: 100,
   },
 
@@ -126,7 +126,7 @@ export const products: Product[] = [
     description: "Diseño adorable en formato sticker individual, resistente al agua.",
     price: 4,
     category: "sticker",
-    image: "/src/assets/images/Products/stickers/Perro.png",
+    image: new URL("../assets/images/Products/stickers/Perro.png", import.meta.url).href,
     stock: 100,
   },
 
@@ -136,7 +136,7 @@ export const products: Product[] = [
     description: "Sticker ilustrado con detalles finos y acabado profesional.",
     price: 4,
     category: "sticker",
-    image: "/src/assets/images/Products/stickers/Gato.png",
+    image: new URL("../assets/images/Products/stickers/Gato.png", import.meta.url).href,
     stock: 100,
   },
 
