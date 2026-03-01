@@ -9,6 +9,11 @@ function goToProduct(id: string) {
   router.push(`/product/${id}`)
   cart.closeCart()
 }
+
+function goToCheckout() {
+  cart.closeCart()
+  router.push("/checkout")
+}
 </script>
 
 <template>
@@ -83,7 +88,7 @@ function goToProduct(id: string) {
 
     <div class="footer" v-if="cart.items.length > 0">
       <p>Total: {{ cart.totalPrice }} €</p>
-      <button class="checkout">
+      <button class="checkout" @click="goToCheckout">
         Checkout
       </button>
     </div>
