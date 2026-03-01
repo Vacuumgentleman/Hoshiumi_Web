@@ -38,7 +38,7 @@ export function useProducts() {
   }
 
   return {
-    allProducts, // 🔥 exponemos esto
+    allProducts, 
     search,
     selectedCategory,
     sortOrder,

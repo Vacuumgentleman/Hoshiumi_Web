@@ -53,7 +53,7 @@ const subscribe = () => {
         <p v-if="success" class="success">{{ success }}</p>
       </div>
 
-      <!-- SOCIAL -->
+      <!-- REDES SOCIALES -->
       <div class="social">
         <a
           href="https://instagram.com/hoshiumi.art"

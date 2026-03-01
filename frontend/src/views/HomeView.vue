@@ -58,7 +58,7 @@ import brandName from "@/assets/images/brand-name.png"
   text-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
-/* Overlay suave para mejorar contraste */
+/* Overlay suave */
 .hero::before {
   content: "";
   position: absolute;
@@ -67,7 +67,6 @@ import brandName from "@/assets/images/brand-name.png"
   z-index: 0;
 }
 
-/* Asegura que el contenido esté encima */
 .hero > * {
   position: relative;
   z-index: 1;

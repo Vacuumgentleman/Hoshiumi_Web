@@ -1,14 +1,14 @@
 :root {
-  /* Marca */
+  /* Colores de Marca */
   --primary-blue: #3d75cf;
   --primary-blue-dark: #162c4d;
 
-  /* Light */
+  /* Modo Light */
   --bg-light: #eaf3ff;
   --surface-light: #ffffff;
   --text-light: #1e3a66;
 
-  /* Dark */
+  /* Modo Dark */
   --bg-dark: #0f1724;
   --surface-dark: #162033;
   --text-dark: #7fb3ff;
