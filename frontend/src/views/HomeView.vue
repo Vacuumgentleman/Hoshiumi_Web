@@ -115,4 +115,45 @@ import brandName from "@/assets/images/brand-name.png"
     transform: translateY(0);
   }
 }
+
+/* ========================= */
+/* RESPONSIVE                */
+/* ========================= */
+
+@media (max-width: 1024px) {
+  .hero-logo {
+    width: 480px;
+  }
+
+  .hero p {
+    font-size: 1.1rem;
+    padding: 0 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    min-height: 70vh;
+    padding: 2rem 1rem;
+  }
+
+  .hero-logo {
+    width: 85vw;
+  }
+
+  .hero p {
+    font-size: 1rem;
+    padding: 0 0.5rem;
+  }
+
+  .btn {
+    width: 100%;
+    max-width: 280px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.9rem 1.5rem;
+  }
+}
 </style>

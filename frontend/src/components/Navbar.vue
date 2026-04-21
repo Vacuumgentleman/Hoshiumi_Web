@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from "vue"
 import { useCartStore } from "@/stores/cart"
 import { useThemeStore } from "@/stores/theme"
 import logo from "@/assets/images/hoshiumi-logo.png"
@@ -6,20 +7,44 @@ import logo from "@/assets/images/hoshiumi-logo.png"
 const cart = useCartStore()
 const theme = useThemeStore()
 
+const menuOpen = ref(false)
+
 function toggleTheme() {
   theme.toggleTheme()
+}
+
+function closeMenu() {
+  menuOpen.value = false
+}
+
+function handleCartClick() {
+  closeMenu()
+  cart.openCart()
 }
 </script>
 
 <template>
   <nav class="navbar">
     <!-- Logo -->
-    <RouterLink to="/" class="logo">
+    <RouterLink to="/" class="logo" @click="closeMenu">
       <img :src="logo" alt="Hoshiumi Logo" />
     </RouterLink>
 
+    <!-- Burger button (mobile only) -->
+    <button
+      class="burger"
+      :class="{ open: menuOpen }"
+      @click="menuOpen = !menuOpen"
+      aria-label="Abrir menú"
+      :aria-expanded="menuOpen"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
     <!-- Links -->
-    <div class="links">
+    <div class="links" :class="{ 'links--open': menuOpen }">
 
       <!-- DAY / NIGHT SWITCH -->
       <div class="switch">
@@ -39,11 +64,11 @@ function toggleTheme() {
         </label>
       </div>
 
-      <RouterLink to="/gallery">Galería</RouterLink>
-      <RouterLink to="/about">Sobre</RouterLink>
+      <RouterLink to="/gallery" @click="closeMenu">Galería</RouterLink>
+      <RouterLink to="/about" @click="closeMenu">Sobre</RouterLink>
 
       <!-- CART -->
-      <button class="cart-button" @click="cart.openCart()">
+      <button class="cart-button" @click="handleCartClick">
         🛒
         <span v-if="cart.totalItems > 0" class="cart-badge">
           {{ cart.totalItems }}
@@ -214,6 +239,111 @@ function toggleTheme() {
 .switch input:checked ~ .background .stars2 {
   opacity: 0;
   transform: translateY(10px);
+}
+
+/* ========================= */
+/* BURGER BUTTON             */
+/* ========================= */
+
+.burger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28px;
+  height: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+}
+
+.burger::before {
+  content: "";
+  position: absolute;
+  inset: -12px -8px;
+}
+
+.burger span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.burger.open span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+.burger.open span:nth-child(2) {
+  opacity: 0;
+}
+.burger.open span:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+/* ========================= */
+/* RESPONSIVE                */
+/* ========================= */
+
+@media (max-width: 1024px) {
+  .navbar {
+    padding: 1rem 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .navbar {
+    padding: 0.75rem 1rem;
+    flex-wrap: wrap;
+  }
+
+  .burger {
+    display: flex;
+  }
+
+  .links {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    width: 100%;
+    order: 3;
+    background: var(--surface);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 0.5rem 0;
+  }
+
+  .links--open {
+    display: flex;
+  }
+
+  .links a,
+  .links .cart-button {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    border-radius: 0;
+    gap: 0.5rem;
+  }
+
+  .links a.router-link-exact-active::after {
+    display: none;
+  }
+
+  .links a.router-link-exact-active {
+    background: rgba(61, 117, 207, 0.1);
+    border-left: 3px solid var(--primary-blue);
+    padding-left: calc(1rem - 3px);
+  }
+
+  .switch {
+    margin: 0.75rem 1rem;
+  }
 }
 
 </style>

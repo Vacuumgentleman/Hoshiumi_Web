@@ -1,0 +1,163 @@
+/* ========================= */
+/* GLOBAL CONTAINER */
+/* ========================= */
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* ========================= */
+/* BUTTONS */
+/* ========================= */
+
+.btn-primary {
+  padding: 0.9rem 1.8rem;
+  background: var(--primary-blue);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.btn-outline {
+  padding: 0.8rem 1.4rem;
+  border: 1px solid var(--primary-blue);
+  background: transparent;
+  color: var(--primary-blue);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-outline:hover {
+  background: var(--primary-blue);
+  color: white;
+}
+
+/* ========================= */
+/* INPUTS */
+/* ========================= */
+
+.input {
+  padding: 0.8rem 1rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--primary-blue);
+  background: transparent;
+  color: var(--text);
+  transition: var(--transition);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+}
+
+/* ========================= */
+/* CARD */
+/* ========================= */
+
+.card-base {
+  background: var(--surface);
+  border-radius: 12px;
+  transition: var(--transition);
+}
+
+.card-hover:hover {
+  transform: translateY(-6px);
+}
+
+/* ========================= */
+/* GRID SYSTEM */
+/* ========================= */
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
+}
+
+/* ========================= */
+/* EMPTY STATE */
+/* ========================= */
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  opacity: 0.8;
+}
+
+/* ========================= */
+/* BADGE */
+/* ========================= */
+
+.badge {
+  background: var(--primary-blue);
+  color: white;
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  border-radius: 50px;
+}
+
+/* ========================= */
+/* SECTION SPACING */
+/* ========================= */
+
+.section {
+  padding: 4rem 2rem;
+}
+
+/* ========================= */
+/* RESPONSIVE                */
+/* ========================= */
+
+@media (max-width: 1024px) {
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .grid-2 {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .section {
+    padding: 3rem 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .grid-3 {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .section {
+    padding: 2rem 1rem;
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+
+  .btn-primary,
+  .btn-outline {
+    min-height: 44px;
+    padding: 0.75rem 1.5rem;
+  }
+}

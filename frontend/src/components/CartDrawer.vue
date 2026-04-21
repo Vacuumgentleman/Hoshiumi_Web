@@ -88,8 +88,8 @@ function goToCheckout() {
 
     <div class="footer" v-if="cart.items.length > 0">
       <p>Total: {{ cart.totalPrice }} €</p>
-      <button class="checkout" @click="goToCheckout">
-        Checkout
+        <button class="btn-primary" @click="goToCheckout">
+          Checkout
       </button>
     </div>
   </aside>
@@ -200,15 +200,6 @@ function goToCheckout() {
   border-top: 1px solid var(--surface);
 }
 
-.checkout {
-  width: 100%;
-  padding: 0.9rem;
-  background: var(--primary-blue);
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
 .empty {
   flex: 1;
   display: flex;
@@ -225,5 +216,52 @@ function goToCheckout() {
 .empty-icon {
   font-size: 2rem;
   margin-bottom: 1rem;
+}
+
+/* ========================= */
+/* RESPONSIVE                */
+/* ========================= */
+
+@media (max-width: 640px) {
+  .drawer {
+    width: 100vw;
+  }
+
+  .header {
+    padding: 1rem;
+  }
+
+  .header button {
+    min-width: 44px;
+    min-height: 44px;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .items {
+    padding: 1rem;
+  }
+
+  .item img {
+    width: 60px;
+    height: 78px;
+  }
+
+  .quantity-controls button {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+
+  .footer {
+    padding: 1rem;
+  }
+
+  .footer .btn-primary {
+    width: 100%;
+    min-height: 44px;
+  }
 }
 </style>

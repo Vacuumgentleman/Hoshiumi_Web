@@ -164,6 +164,8 @@ const subscribe = () => {
   display: flex;
   justify-content: center;
   gap: 1rem;
+  max-width: 480px;
+  margin: 0.75rem auto 0;
 }
 
 .newsletter input {
@@ -172,7 +174,8 @@ const subscribe = () => {
   border-radius: 8px;
   background: transparent;
   color: var(--text);
-  min-width: 260px;
+  flex: 1;
+  min-width: 0;
 }
 
 .newsletter button {
@@ -203,5 +206,54 @@ const subscribe = () => {
 .footer-bottom a.router-link-exact-active {
   color: var(--primary-blue);
   text-decoration: underline;
+}
+
+/* ========================= */
+/* RESPONSIVE                */
+/* ========================= */
+
+@media (max-width: 1024px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .newsletter {
+    grid-column: 1 / -1;
+    order: -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer {
+    padding: 2.5rem 1rem 1.5rem;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .newsletter input {
+    min-width: unset;
+    width: 100%;
+  }
+
+  .newsletter button {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .footer-bottom {
+    margin-top: 2rem;
+    font-size: 0.85rem;
+  }
 }
 </style>

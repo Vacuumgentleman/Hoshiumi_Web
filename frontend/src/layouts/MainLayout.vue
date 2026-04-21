@@ -4,6 +4,7 @@ import CartDrawer from "@/components/CartDrawer.vue"
 import Footer from "@/components/Footer.vue"
 import Navbar from "@/components/Navbar.vue"
 import "@/assets/styles/theme.css"
+import "@/assets/styles/ui.css"
 
 const theme = useThemeStore()
 </script>

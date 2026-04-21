@@ -288,4 +288,65 @@ h1 {
   background: var(--primary-blue);
   color: white;
 }
+
+/* ========================= */
+/* RESPONSIVE                */
+/* ========================= */
+
+@media (max-width: 1024px) {
+  .shop {
+    padding: 3rem 2rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .filters {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .shop {
+    padding: 2rem 1rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .filters {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .filters input,
+  .filters select {
+    width: 100%;
+    min-height: 44px;
+    padding: 0.75rem 0.8rem;
+  }
+
+  .favorite-filter {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .favorite-btn {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Overlay siempre visible en pantallas táctiles */
+@media (hover: none) {
+  .overlay {
+    opacity: 1;
+    background: rgba(30, 58, 102, 0.45);
+  }
+}
 </style>

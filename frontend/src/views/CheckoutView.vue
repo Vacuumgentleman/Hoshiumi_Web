@@ -181,4 +181,51 @@ button:disabled {
   text-align: center;
   padding: 3rem;
 }
+
+/* ========================= */
+/* RESPONSIVE                */
+/* ========================= */
+
+@media (max-width: 1024px) {
+  .layout {
+    gap: 2rem;
+  }
+
+  .summary {
+    width: 300px;
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .checkout {
+    padding: 1.5rem 1rem;
+  }
+
+  .layout {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .summary {
+    width: 100%;
+    padding: 1.25rem;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    min-height: 44px;
+    box-sizing: border-box;
+  }
+
+  textarea {
+    min-height: 100px;
+  }
+
+  button {
+    width: 100%;
+    min-height: 44px;
+  }
+}
 </style>
