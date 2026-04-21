@@ -1,88 +1,89 @@
-# Hoshiumi Web
+# Hoshiumi Web 🎨
 
-Hoshiumi Web es una tienda de arte independiente enfocada en ilustraciones originales, prints y stickers.
+Hoshiumi Web is the official online store for the Hoshiumi brand — an independent art brand focused on original illustrations, high-quality prints, and collectible stickers.
 
----
-
-## Sobre la tienda
-
-Hoshiumi ofrece:
-
-- Prints de alta calidad
-- Packs de stickers originales
-- Stickers coleccionables individuales
-- Lanzamientos de edición limitada
+This platform is built for real commercial use and represents the digital home of the Hoshiumi identity.
 
 ---
 
-## Tech Stack
+## 🛍 About the Store
 
-**Frontend (principal):**
+Hoshiumi offers:
+
+- High-quality art prints
+- Original illustrated sticker packs
+- Individual collectible stickers
+- Limited edition releases
+
+The platform is designed to provide a clean, premium, and modern shopping experience that reflects the Hoshiumi aesthetic.
+
+---
+
+## 🛠 Tech Stack
+
+**Frontend:**
 - React 18
 - React Router v6
 - Vite
 - JavaScript ES6+
-- Context API + useState (gestión de estado)
-
-**Frontend (respaldo):**
-- Vue 3 (Composition API)
-- TypeScript
-- Pinia
+- Context API + useState
 
 **Deployment:**
 - Vercel
 
----
-
-## Instalación local
-
-```bash
-# Clonar el repositorio
-git clone https://github.com/tu-usuario/Art_Store.git
-cd Art_Store
-
-# Instalar dependencias del frontend React
-cd frontend-react
-npm install
-npm run dev
-```
-
-El servidor de desarrollo estará en `http://localhost:5173`.
+**Planned Expansion:**
+- Backend API integration
+- Secure payment processing (Stripe)
+- Database-backed stock management
+- Order management system
 
 ---
 
-## Features actuales
+## 🚀 Current Features
 
-- Catálogo de productos (Prints y Stickers)
-- Página de detalle por producto
-- Carrito de compras con control de cantidades
-- Favoritos
-- Modo oscuro / claro
-- Diseño responsive (móvil, tablet, escritorio)
-- Flujo de checkout simulado
+- Product catalog (Prints & Stickers)
+- Dynamic product detail page
+- Shopping cart with quantity control
+- Favorites list
+- Dark / light mode
+- Fully responsive layout (mobile, tablet, desktop)
+- Simulated checkout flow
 
 ---
 
-## Deployment
+## 🔒 Intellectual Property Notice
 
-La versión en producción se despliega con Vercel:
+All artwork, illustrations, branding elements, and visual assets in this project are the exclusive property of Hoshiumi.
 
+Unauthorized reproduction, redistribution, or commercial use of any artwork or brand material is strictly prohibited.
+
+This repository may be kept private for brand protection purposes.
+
+---
+
+## 🌍 Deployment
+
+The production version of this store is deployed using Vercel.
+
+Configuration:
+- Framework: Vite (React)
 - Root Directory: `frontend-react`
 - Build Command: `npm run build`
 - Output Directory: `dist`
 
 ---
 
-## Roadmap
+## 📈 Roadmap
 
-- Integración con Stripe (pagos reales)
-- Backend con API de productos y pedidos
-- Autenticación de usuarios
-- Gestión de inventario
-- Soporte de envíos internacionales
+- Payment gateway integration (Stripe)
+- Backend order processing
+- Secure authentication
+- Inventory automation
+- International shipping support
 
 ---
 
-## Propiedad intelectual
+## 👤 Brand
 
-Todas las ilustraciones, assets visuales y elementos de marca son propiedad exclusiva de Hoshiumi. Queda prohibida su reproducción o uso comercial sin autorización.
+**Hoshiumi**
+Independent art brand focused on illustration, creativity, and premium printed goods.
